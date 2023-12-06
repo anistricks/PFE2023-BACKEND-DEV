@@ -44,8 +44,9 @@ stages:
         python -m pip install --upgrade pip
         pip install setup
         pip install -r requirements.txt
+        python manage.py test 
       workingDirectory: $(projectRoot)
-      displayName: "Install requirements"
+      displayName: "Install requirements and  test "
 
     - task: ArchiveFiles@2
       displayName: 'Archive files'
@@ -85,3 +86,5 @@ stages:
               azureSubscription: $(azureServiceConnectionId)
               appName: $(webAppName)
               package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
+  
+        
