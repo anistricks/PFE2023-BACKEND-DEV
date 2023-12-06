@@ -8,7 +8,7 @@ class UserView(APIView):
     def get(self, *args, **kwargs):
         queryset = User.objects.all()
         serializer = UserSerializer(queryset, many=True)
-        return Response('Test pour pipeline sortie')
+        return Response('Test pour pipeline sortie & web app')
     
 
 
