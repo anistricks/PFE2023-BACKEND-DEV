@@ -85,3 +85,19 @@ stages:
               azureSubscription: $(azureServiceConnectionId)
               appName: $(webAppName)
               package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
+  - job: TestJob
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(pythonVersion)'
+      displayName: 'Use Python $(pythonVersion)'
+
+    - script: |
+        source antenv/bin/activate
+        python -m pip install django 
+        python manage.py test Tests.tests  
+      workingDirectory: $(projectRoot)
+      displayName: 'Run Django tests'
+      continueOnError: true        
